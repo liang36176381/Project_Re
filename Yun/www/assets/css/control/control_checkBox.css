@@ -1,0 +1,32 @@
+input[type='checkbox'] {
+    position: relative;
+    width: 80px;
+    height: 40px;
+    /*去除原本的勾選框*/
+    appearance: none;
+    background: #cccccc;
+    border-radius: 20px;
+}
+
+input:checked[type='checkbox'] {
+    background: #03a9f4;
+}
+
+input[type='checkbox']:before {
+    content: ' ';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    left: 0;
+    background: white;
+    /*放大1.1，讓圓形大於底部*/
+    transform: scale(1.1);
+    border: 1px solid lightgray;
+    /*check時，以0.2秒均速執行動畫*/
+    transition: 0.2s;
+}
+
+input:checked[type='checkbox']:before {
+    left: 40px;
+}

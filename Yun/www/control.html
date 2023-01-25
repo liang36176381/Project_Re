@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <link rel="stylesheet" href="./assets/css/control/control.css">
+    <script src="./assets/javascript/script.js"></script>
+    <!-- https://cdnjs.com/libraries/ -->
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript">
+        window.onload = Load;
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#sub').click(function () {
+                let v1 = $('#v1').val();
+                let v2 = $('#v2').val();
+                let v3 = $('#v3').val();
+                let v4 = $('#v4').val();
+                if (v1.length + v2.length + v3.length + v4.length != 8) {
+                    toastr["warning"]("Input Illegal");
+                    return;
+                }
+                let data = {
+                    nickname: $('#nickname').val(),
+                    v: [v1, v2, v3, v4]
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: './assets/php/addCard.php',
+                    data: data,
+                    success: function (msg) {
+                        console.log(msg);
+                        let re = JSON.parse(msg);
+                        toastr[re["status"].toLowerCase()](re["msg"], re["status"]);
+                        $('#v1').val("");
+                        $('#v2').val("");
+                        $('#v3').val("");
+                        $('#v4').val("");
+                        $('#iframe').attr('src', $('#iframe').attr('src'));
+                    }
+                })
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <section class="main">
+        <h1>Control Panel</h1>
+        <div class="functionList">
+            <div class="function">
+                <div class="label"></div>
+                <h2>LED</h2>
+                <p>Color</p>
+
+                <!-- 放個div方便摺疊整理 -->
+                <div>
+                    <input type="radio" name="rd" id="all" value="all" onchange="SendRequest('LED')">
+                    <input type="radio" name="rd" id="red" value="red" onchange="SendRequest('LED')">
+                    <input type="radio" name="rd" id="green" value="green" onchange="SendRequest('LED')">
+                    <input type="radio" name="rd" id="blue" value="blue" onchange="SendRequest('LED')">
+                    <!--for讓label和input可以互相指定 並讓label成為input的後代元素(子元素的子元素都算??)
+                    所以可以在css用`~`選中-->
+                    <label for="all" class="box all">
+                        <div class="color">
+                            <span class="circle"></span>
+                            <span>All</span>
+                        </div>
+                    </label>
+                    <label for="red" class="box red">
+                        <div class="color">
+                            <span class="circle"></span>
+                            <span>Red</span>
+                        </div>
+                    </label>
+                    <label for="green" class="box green">
+                        <div class="color">
+                            <span class="circle"></span>
+                            <span>Green</span>
+                        </div>
+                    </label>
+                    <label for="blue" class="box blue">
+                        <div class="color">
+                            <span class="circle"></span>
+                            <span>Blue</span>
+                        </div>
+                    </label>
+                </div>
+                <p>
+                    <a class="button" onclick="CloseLED();">CLOSE</a>
+                </p>
+            </div>
+            <div class="function">
+                <div class="label"></div>
+                <h2>Door</h2>
+                <p>Close/Open:</p>
+                <p id="inv"></p>
+                <input type="checkbox" id="door" onclick="SendRequest('Door')">
+            </div>
+            <div class="function">
+                <div class="label"></div>
+                <h2>RFID Setting</h2>
+                <p>
+                    <a onclick="openConfig()" class="button">Config</a>
+                </p>
+                <!-- <h2>Custom LCD</h2>
+                    <p>Enable Custom</p>
+                    <input type="checkbox">
+                    <p>Input</p>
+                    <input> -->
+            </div>
+            <div class="function">
+                <div class="label"></div>
+                <h2>Fan</h2>
+                <input type="checkbox" id="fan" onclick="SendRequest('Fan')">
+            </div>
+        </div>
+    </section>
+    <section class="sec">
+        <h1>Status</h1>
+        <div class="statusList">
+            <div class="status">
+                <div class="title">
+                    <div class="label"></div>
+                    <h2>Time</h2>
+                    <h3 id="time"></h3>
+                </div>
+            </div>
+            <div class="status">
+                <div class="title">
+                    <div class="label"></div>
+                    <h2>Humid</h2>
+                    <p id="humid_p">connecting...</p>
+                </div>
+            </div>
+            <div class="status">
+                <div class="title">
+                    <div class="label"></div>
+                    <h2>Temperature</h2>
+                    <p id="temp_p">connecting...</p>
+                </div>
+            </div>
+            <div class="status">
+                <div class="title">
+                    <div class="label"></div>
+                    <h2>Lightness</h2>
+                    <p id="light_p">connecting...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 彈出視窗 -->
+    <section class="popupWindow">
+        <div class="addForm" method="post">
+            <label for="nickname" style="font-size: 20px;">nickname</label>
+            <input id="nickname" name="nickname" autocomplete="off" type="text" class="addCard"><br>
+            <!-- 太多重複 這邊直接動態生成 -->
+            <script>
+                addCardInputCreate();
+            </script>
+            <input type="submit" id="sub" class="addCard">
+            <label for="sub" class="button">Add New Card</label>
+        </div>
+        <iframe id="iframe" class="listCard" src="./assets/php/listCard.php"></iframe>
+        <a onclick="closeConfig()" class="close">X</a>
+        <!-- <button onclick="toast()">test</button> -->
+    </section>
+    <div id="fade" class="black_overlay"></div>
+
+</body>
+
+</html>

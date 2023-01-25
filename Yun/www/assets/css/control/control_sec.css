@@ -1,0 +1,19 @@
+.sec {
+    margin: auto 20px;
+}
+
+.statusList {
+    background-color: white;
+    padding: 15px 15px 15px 40px;
+    position: relative;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.sec .label {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    left: 10px;
+}

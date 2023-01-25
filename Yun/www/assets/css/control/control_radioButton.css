@@ -1,0 +1,91 @@
+input[type="radio"] {
+    display: none;
+}
+
+.box {
+    background: lightgray;
+    margin-top: 10px;
+    padding: 10px;
+    /*讓容器子元素自適應*/
+    display: flex;
+    border-radius: 10px;
+    /*邊框，未選中時先設定透明*/
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.color {
+    /*自適應 水平*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.all:hover {
+    background: linear-gradient(to right, lightcoral, lightgreen, lightblue);
+}
+
+.red:hover {
+    background: lightcoral;
+}
+
+.green:hover {
+    background: lightgreen;
+}
+
+.blue:hover {
+    background: lightblue;
+}
+
+.box .circle {
+    height: 20px;
+    width: 20px;
+    /*透明0.2的黑，不直接改opacity避免套用其他顏色時要重新設定透明度為1*/
+    background: rgba(0, 0, 0, 0.2);
+    border: 5px solid #ccc;
+    margin-right: 15px;
+    border-radius: 50%;
+}
+
+/*整個方框的背景和邊緣*/
+#red:checked~.red {
+    border-color: red;
+    background: lightcoral;
+}
+
+/*裡面圓圈的背景和邊緣*/
+#red:checked~.red .circle {
+    border-color: red;
+    background: white;
+}
+
+#green:checked~.green {
+    border-color: green;
+    background: lightgreen;
+}
+
+#green:checked~.green .circle {
+    border-color: green;
+    background: white;
+}
+
+#blue:checked~.blue {
+    border-color: blue;
+    background: lightblue;
+}
+
+#blue:checked~.blue .circle {
+    border-color: blue;
+    background: white;
+}
+
+#all:checked~.all {
+    border-color: linear-gradient(to right, red, green, blue);
+    background: linear-gradient(to right, lightcoral, lightgreen, lightblue);
+}
+
+#all:checked~.all .circle {
+    border-color: linear-gradient(to right, red, green, blue);
+    background: white;
+}

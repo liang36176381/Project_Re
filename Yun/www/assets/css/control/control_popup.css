@@ -1,0 +1,69 @@
+.black_overlay {
+    /* display: block; */
+    display: none;
+    /*FIXME:畫面滾動後彈出視窗還在上面 #DONE*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.8;
+    z-index: 9999;
+}
+
+
+.popupWindow {
+    overflow: auto;
+    /* display: flex; */
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    justify-content: space-between;
+    top: 25%;
+    left: 10%;
+    width: 80%;
+    height: 50%;
+    padding: 10px 30px 10px 10px;
+    border: 5px solid orange;
+    background-color: white;
+    z-index: 10000;
+}
+
+.close {
+    background-color: red;
+    position: absolute;
+    padding: 5px;
+    font-size: 20px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.addForm {
+    width: 100%;
+}
+
+.listCard {
+    width: 100%;
+}
+
+.RFLabel {
+    color: red;
+    font-size: 20px;
+}
+
+input[type="text"].addCard {
+    font-size: 20px;
+    width: 50px;
+}
+
+input[type="submit"].addCard {
+    display: none;
+    margin: 0;
+}
+
+
+.container {
+    position: relative;
+}

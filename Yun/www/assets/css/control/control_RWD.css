@@ -1,0 +1,97 @@
+/*
+ *Phone：767px（iPad 是 768px，因此 767 以下皆算手機裝置）
+ *iPad-PC：992px
+ *PC：1200px
+ *手機優先(小到大)
+ */
+
+/*768~991*/
+@media only screen and (min-width: 768px) {
+    section.main .functionList {
+        display: flex;
+        /*自動換行*/
+        flex-wrap: wrap;
+        /*平均分配寬度，第一項和最後一項貼齊邊緣*/
+        justify-content: space-between;
+    }
+
+    section.main .functionList .function {
+        /*95/2 = 47.5*/
+        /*留5%空隙 太擠的話再改*/
+        width: 47.5%;
+    }
+
+    section.sec {
+        display: flex;
+        /*平均分配寬度和間距*/
+        justify-content: space-around;
+        /*不換行*/
+        flex-wrap: nowrap;
+    }
+
+    section.sec .statusList {
+        /*先放75 右側有空再看要補什麼*/
+        width: 75%;
+    }
+
+    section.popupWindow {
+        flex-direction: row;
+    }
+
+    section.popupWindow .addForm {
+        float: left;
+        width: 30%;
+    }
+
+    section.popupWindow .listCard {
+        float: right;
+        width: 70%;
+    }
+
+}
+
+/*992~1199*/
+@media only screen and (min-width: 992px) {
+    section.main {
+        width: 60%;
+    }
+
+    section.sec {
+        display: block;
+        width: 35%;
+        /*滾動頁面時固定顯示*/
+        position: fixed;
+        /*右上*/
+        top: 0px;
+        right: 0px;
+    }
+
+    section.sec .statusList {
+        /*填滿sec*/
+        width: 100%;
+    }
+}
+
+/*1200up 桌面*/
+@media only screen and (min-width: 1200px) {
+    section.main {
+        width: 65%;
+    }
+
+    section.main .functionList {
+        /**FIXME:有大於一個function大小的間隔時，會空出中間的  #DONE*/
+        justify-content: flex-start;
+    }
+
+    section.main .functionList .function {
+        /*95/3=31.67 取30*/
+        width: 30%;
+        /**FIXME:中間間隔*/
+        margin-right: 3%;
+    }
+
+    section.sec {
+        width: 30%;
+    }
+
+}

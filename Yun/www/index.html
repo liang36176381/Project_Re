@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- https://youtu.be/cxm5bCCa9OA -->
+
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/index.css" type="text/css">
+</head>
+
+<body>
+    <div class="box">
+        <div class="form">
+            <h2>Login</h2>
+            <form method="post" action="./assets/php/confirm.php">
+                <div class="inputBox">
+                    <input type="text" name="account" required="required" autocomplete="off">
+                    <span>Account</span>
+                    <i></i>
+                </div>
+                <div class="inputBox">
+                    <input id="password" type="password" name="password" required="required" autocomplete="off">
+                    <span>Password</span>
+                    <i></i>
+                    <input id="check" class="check" type="checkbox" onclick="toggle()">
+                    <label for="check">ABC</label>
+                </div>
+                <div class="inputBox">
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+    <script>
+        function toggle() {
+            var x = document.querySelector("#password");
+            x.type = x.type === "password" ? "text" : "password";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+@charset "utf-8";
+@import "control_main.css";
+@import "control_sec.css";
+@import "control_RWD.css";
+@import "control_checkBox.css";
+@import "control_radioButton.css";
+@import "control_popup.css";
+
+* {
+    /*寬高設定作用在邊框外緣，不會超出邊框*/
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    background-color: aliceblue;
+}
+
+h1 {
+    text-align: center;
+    font-size: 35px;
+    margin: 20px 0px;
+}
+
+h2 {
+    font-size: 20px;
+    /*這到底怎麼做到的??????*/
+    /*line高0，文字剛好被擠到margin區域*/
+    line-height: 0;
+}
+
+p {
+    color: gray;
+}
+
+.label {
+    background-color: tan;
+}
+
+.button {
+    white-space: nowrap;
+    margin-top: 10px;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 20px;
+    font-size: 20px;
+    /*這邊放這行的話會變成字在padding上，所以我說那個原理??????*/
+    /* line-height: 0; */
+    background-color: mediumblue;
+}
